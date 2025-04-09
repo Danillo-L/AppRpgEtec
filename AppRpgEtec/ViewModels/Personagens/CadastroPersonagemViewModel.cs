@@ -195,7 +195,8 @@ namespace AppRpgEtec.ViewModels.Personagens
 
                 await Application.Current.MainPage.DisplayAlert("Mensagem", "Dados salvos com sucesso", "OK");
 
-                await Shell.Current.GoToAsync(".."); //Remove a página atual da pilha de páginas
+                Application.Current.MainPage.Navigation.PushAsync(new Views.Armas.CadastroArmaView());
+
             }
             catch (Exception ex)
             {
@@ -206,7 +207,7 @@ namespace AppRpgEtec.ViewModels.Personagens
 
         private async void CancelarCadastro()
         {
-            await Shell.Current.GoToAsync("..");
+            Application.Current.MainPage.Navigation.PushAsync(new Views.Armas.CadastroArmaView());
         }
 
         public string PersonagemSelecionadoId
