@@ -57,6 +57,9 @@ namespace AppRpgEtec.ViewModels.Usuarios
         }
         #endregion
 
+        private CancellationTokenSource cancellTokenSource;
+        private bool _isChekingLocation;
+
         public async Task AutenticarUsuario()
         {
             try
@@ -87,6 +90,12 @@ namespace AppRpgEtec.ViewModels.Usuarios
             }
             catch (Exception ex)
             {
+                _isChekingLocation = true;
+               //_cancellationTokenSource = new CancellationTokenSource();
+                GeolocationRequest request = new GeolocationRequest(GeolocationAccuracy.Medium, TimeSpan.FromSeconds(10));
+
+
+
                 await Application.Current.MainPage.DisplayAlert("Informação",
                         ex.Message + " Detalhes: " + ex.InnerException, "Ok");
             }

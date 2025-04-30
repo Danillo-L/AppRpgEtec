@@ -47,7 +47,7 @@
 
         <ShellContent
         Title="Usuarios"
-        ContentTemplate="{DataTemplate viewsUsuarios:ListagemView}"/>
+        ContentTemplate="{DataTemplate viewsUsuarios:LocalizacaoView}"/>
 
         <ShellContent
         Title="Disputas"
