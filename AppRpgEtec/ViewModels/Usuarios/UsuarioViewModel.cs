@@ -31,7 +31,6 @@ namespace AppRpgEtec.ViewModels.Usuarios
             DirecionarCadastroCommand = new Command(async () => await DirecionarParaCadastro());
         }
 
-
         #region AtributosPropriedades
         private string login = string.Empty;
         private string senha = string.Empty;
@@ -56,6 +55,7 @@ namespace AppRpgEtec.ViewModels.Usuarios
             }
         }
         #endregion
+
 
         private CancellationTokenSource _cancelTokenSource;
         private bool _isChekingLocation;
@@ -85,8 +85,8 @@ namespace AppRpgEtec.ViewModels.Usuarios
 
                     Usuario uLoc = new Usuario();
                     uLoc.Id = uAutenticado.Id;
-                    uLoc.Latitude = uAutenticado.Latitude;
-                    uLoc.Longitude = uAutenticado.Longitude;
+                    uLoc.Latitude = location.Latitude;
+                    uLoc.Longitude = location.Longitude;
 
                     UsuarioService uServiceLoc = new UsuarioService(uAutenticado.Token);
                     await uServiceLoc.PutAtualizarLocalizacaoAsync(uLoc);
