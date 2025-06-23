@@ -1,1 +1,1 @@
-#AppRpgEtec
+AppRpgEtec
