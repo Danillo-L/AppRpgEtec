@@ -4,6 +4,7 @@ using AppRpgEtec.Services.Personagens;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
+
 namespace AppRpgEtec.ViewModels.Armas
 {
     [QueryProperty("ArmaSelecionadaId", "aId")]

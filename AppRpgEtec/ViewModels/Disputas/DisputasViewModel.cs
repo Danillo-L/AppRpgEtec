@@ -9,6 +9,8 @@ using AppRpgEtec.Models;
 using AppRpgEtec.Services.Disputas;
 using AppRpgEtec.Services.PersonagemHabilidades;
 using AppRpgEtec.Services.Personagens;
+using Microsoft.Maui.Controls;
+
 
 namespace AppRpgEtec.ViewModels.Disputas
 {
@@ -92,35 +94,49 @@ namespace AppRpgEtec.ViewModels.Disputas
 
         public Disputa DisputaPersonagens { get; set; }
 
-        public DisputasViewModel()
+
+public DisputasViewModel()
+    {
+        string token = string.Empty;
+
+        if (DeviceInfo.Platform == DevicePlatform.Android || DeviceInfo.Platform == DevicePlatform.iOS)
         {
-            string token = Preferences.Get("UsuarioToken", string.Empty);
-            pService = new PersonagemService(token);
-            dService = new DisputaService(token);
-            phService = new PersonagemHabilidadeService(token);
-
-            Atacante = new Personagem();
-            Oponente = new Personagem();
-            DisputaPersonagens = new Disputa();
-
-            PersonagensEncontrados = new ObservableCollection<Personagem>();
-
-            PesquisarPersonagemCommand = 
-                new Command<string>(async (string pesquisa) => { await PesquisarPersonagens(pesquisa); });
-
-            DisputaComArmaCommand =
-                new Command(async () => { await ExecutarDisputaArmada(); });
-
-            DisputaComHabilidadeCommand =
-                new Command(async () => {  await ExecutarDisputaHabilidades(); });
-
-            DisputaGeralCommand =
-                new Command(async () => { await ExecutarDisputaGeral(); });
+            token = Preferences.Get("UsuarioToken", string.Empty);
+        }
+        else
+        {
+            // Handle unsupported platforms or provide a default value
+            token = "DefaultToken"; // Replace with appropriate fallback logic
         }
 
-        
+        pService = new PersonagemService(token);
+        dService = new DisputaService(token);
+        phService = new PersonagemHabilidadeService(token);
 
-        public ICommand PesquisarPersonagemCommand { get; set; }
+        Atacante = new Personagem();
+        Oponente = new Personagem();
+        DisputaPersonagens = new Disputa();
+
+        Habilidades = new ObservableCollection<PersonagemHabilidade>();
+        PersonagensEncontrados = new ObservableCollection<Personagem>();
+
+        PesquisarPersonagemCommand =
+            new Command<string>(async (string pesquisa) => { await PesquisarPersonagens(pesquisa); });
+
+        DisputaComArmaCommand =
+            new Command(async () => { await ExecutarDisputaArmada(); });
+
+        DisputaComHabilidadeCommand =
+            new Command(async () => { await ExecutarDisputaHabilidades(); });
+
+        DisputaGeralCommand =
+            new Command(async () => { await ExecutarDisputaGeral(); });
+    }
+
+
+
+
+    public ICommand PesquisarPersonagemCommand { get; set; }
         public ICommand DisputaComArmaCommand { get; set; }
         public ICommand DisputaComHabilidadeCommand { get; set; }
         public ICommand DisputaGeralCommand { get; set; }  
